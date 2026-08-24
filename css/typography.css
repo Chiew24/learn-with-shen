@@ -1,0 +1,43 @@
+/* Typography overrides for Learn with Shen */
+body,
+button,
+input,
+textarea,
+select {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.logo,
+.nav,
+.nav-drop-btn,
+.btn,
+.eyebrow,
+.hero-proof,
+.stats,
+.floating-tag,
+.math-card-top,
+.progress-label,
+.lesson-row,
+.avatar-stack,
+.tag-top,
+.tag-bottom {
+  font-family: "Times New Roman", Times, serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.equation,
+.math,
+.math-equation,
+.formula,
+.formula-equation,
+[class*="equation"] {
+  font-family: "Cambria Math", Cambria, "Times New Roman", serif;
+}
