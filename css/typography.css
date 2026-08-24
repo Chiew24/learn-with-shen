@@ -41,3 +41,22 @@ h6 {
 [class*="equation"] {
   font-family: "Cambria Math", Cambria, "Times New Roman", serif;
 }
+
+/* Learn dropdown: keep a safe hover bridge so the menu does not disappear */
+.nav-dropdown::after {
+  content: "";
+  position: absolute;
+  left: -20px;
+  right: -20px;
+  top: 100%;
+  height: 14px;
+}
+
+.dropdown-menu {
+  top: calc(100% + 10px) !important;
+}
+
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown.open .dropdown-menu {
+  display: block !important;
+}
