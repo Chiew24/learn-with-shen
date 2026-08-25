@@ -1,0 +1,46 @@
+/* Chapter 1.1 Exercise — matches the Notes / inner-page design */
+.exercise-page{background:var(--paper);color:var(--ink)}
+
+.exercise-page .chapter-header{padding:72px 0 70px;background:var(--soft);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.exercise-page .chapter-header:after{content:"";position:absolute;width:320px;height:320px;border-radius:50%;background:#e7dfd1;right:-120px;top:-170px;opacity:.75}
+.exercise-page .chapter-header .container{position:relative;z-index:1}
+.exercise-page .back-link{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-size:14px;font-weight:700;margin-bottom:30px;transition:.2s}
+.exercise-page .back-link:hover{transform:translateX(-3px)}
+.exercise-page .eyebrow{margin-bottom:22px}
+.exercise-page .chapter-header h1{font-size:clamp(52px,6vw,78px);margin-bottom:14px;letter-spacing:-1.5px;line-height:1.04}
+.exercise-page .chapter-header> .container>p:last-child{max-width:680px;color:var(--muted);font-size:17px;line-height:1.7}
+
+.exercise-page .section{padding:70px 0 90px}
+.exercise-page .section>.container{max-width:920px}
+.exercise-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:28px;padding:18px 20px;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px rgba(45,41,35,.04);color:var(--muted);font-size:14px}
+.exercise-toolbar .pill{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:var(--ink);color:#fff;font-size:11px;font-weight:800;letter-spacing:1px}
+
+.exercise-list{display:grid;gap:18px}
+.question-card{display:grid;grid-template-columns:58px minmax(0,1fr);gap:20px;align-items:start;padding:25px 27px;background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 24px rgba(45,41,35,.035);transition:transform .2s,box-shadow .2s,border-color .2s}
+.question-card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(45,41,35,.07);border-color:#d7cdbd}
+.q-number{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:var(--soft);color:var(--accent);font-size:12px;font-weight:800;letter-spacing:.5px}
+.question-card h3{margin:2px 0 9px;font-size:20px;letter-spacing:-.3px}
+.question-card p{margin:0;color:#4e4942;font-size:16px;line-height:1.75}
+.question-card strong{font-family:"Cambria Math",Cambria,"Times New Roman",serif;color:var(--ink)}
+.answer-line{height:58px;margin-top:20px;border:1px dashed #cfc5b5;border-radius:10px;background:#faf7f1;position:relative}
+.answer-line:before{content:"Working / Answer";position:absolute;top:10px;left:13px;color:#a39a8d;font-size:11px;letter-spacing:.4px}
+.answer-line.tall{height:105px}
+
+.exercise-footer{display:flex;justify-content:space-between;gap:14px;margin-top:32px;padding-top:25px;border-top:1px solid var(--line)}
+.exercise-footer .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 20px;border-radius:11px;font-size:14px;font-weight:700;transition:.2s}
+.exercise-footer .btn:hover{transform:translateY(-2px)}
+.exercise-footer .btn-dark{background:var(--ink);color:#fff}
+.exercise-footer .btn-primary{background:var(--accent);color:#fff}
+
+@media(max-width:700px){
+  .exercise-page .chapter-header{padding:55px 0 60px}
+  .exercise-page .chapter-header h1{font-size:52px}
+  .exercise-page .section{padding:50px 0 65px}
+  .exercise-toolbar{align-items:flex-start;flex-direction:column}
+  .question-card{grid-template-columns:1fr;padding:21px}
+  .q-number{width:42px;height:42px}
+  .question-card h3{font-size:19px}
+  .question-card p{font-size:15px}
+  .exercise-footer{flex-direction:column}
+  .exercise-footer .btn{width:100%}
+}
