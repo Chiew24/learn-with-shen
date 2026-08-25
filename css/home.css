@@ -1,0 +1,33 @@
+/* Home page typography scale */
+.site-header .nav,
+.site-header .nav-drop-btn { font-size: 16px; }
+
+.site-header .logo-wordmark { font-size: 22px; }
+
+.hero .eyebrow { font-size: 13px; letter-spacing: 2.2px; }
+.hero h1 { font-size: clamp(56px, 6.2vw, 84px); }
+.hero-copy > p { font-size: 19px; line-height: 1.8; }
+.hero-buttons .btn { font-size: 16px; padding: 15px 22px; }
+.hero-proof strong { font-size: 14px; }
+.hero-proof small { font-size: 12px; }
+.avatar-stack span { font-size: 10px; }
+
+.math-card-top { font-size: 11px; }
+.math-card p { font-size: 15px; }
+.progress-label { font-size: 11px; }
+.lesson-row strong { font-size: 13px; }
+.lesson-row small { font-size: 12px; }
+.floating-tag { font-size: 9px; }
+
+.stats strong { font-size: 30px; }
+.stats span { font-size: 12px; }
+
+@media (max-width: 800px) {
+  .site-header .logo-wordmark { font-size: 19px; }
+  .hero .eyebrow { font-size: 11px; }
+  .hero h1 { font-size: 50px; }
+  .hero-copy > p { font-size: 17px; }
+  .hero-buttons .btn { font-size: 15px; }
+  .stats strong { font-size: 26px; }
+  .stats span { font-size: 11px; }
+}
