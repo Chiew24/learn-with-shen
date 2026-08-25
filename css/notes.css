@@ -1,39 +1,63 @@
-/* 1.1 Functions — Notes page */
-.notes-page{background:#f7f3eb;color:#2d2923}
-.chapter-header{padding:78px 0 58px;background:#f7f3eb;border-bottom:1px solid #ddd5c8;position:relative;overflow:hidden}
-.chapter-header:after{content:"";position:absolute;width:320px;height:320px;border-radius:50%;background:#ece5d8;right:-120px;top:-170px;opacity:.8}
+/* Functions Notes — unified with the main inner-page design */
+.notes-page{background:var(--paper);color:var(--ink)}
+
+/* Same page-header rhythm as Form 4 / Chapter 1 pages */
+.chapter-header{padding:72px 0 78px;background:var(--soft);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.chapter-header:after{content:"";position:absolute;width:320px;height:320px;border-radius:50%;background:#e7dfd1;right:-120px;top:-170px;opacity:.75}
 .chapter-header .container{position:relative;z-index:1}
-.chapter-header .back-link{display:inline-flex;align-items:center;gap:8px;color:#705d47;font-size:13px;font-weight:700;margin-bottom:30px}
+.chapter-header .back-link{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-size:14px;font-weight:700;margin-bottom:30px;transition:.2s}
 .chapter-header .back-link:hover{transform:translateX(-3px)}
-.chapter-header .eyebrow{margin-bottom:16px}
-.chapter-header h1{font-size:clamp(48px,6vw,76px);margin-bottom:16px;letter-spacing:-2px}
-.chapter-header> .container>p:last-child{max-width:650px;color:#746b60;font-size:16px}
-.chapter-layout{display:grid;grid-template-columns:230px minmax(0,760px);gap:60px;align-items:start}
-.chapter-sidebar{position:sticky;top:105px;background:#fffdf8;border:1px solid #ddd5c8;border-radius:18px;padding:14px;box-shadow:0 12px 30px rgba(50,40,25,.06)}
-.sidebar-title{font-size:14px;font-weight:800;padding:13px 12px 15px;border-bottom:1px solid #e5ded3;margin-bottom:7px}
-.sidebar-link{display:block;padding:11px 12px;border-radius:10px;color:#746b60;font-size:13px;line-height:1.3;transition:.2s}
-.sidebar-link:hover{background:#eee7da;color:#2d2923}
-.sidebar-link.active{background:#2d2923;color:#fff}
+.chapter-header .eyebrow{margin-bottom:22px}
+.chapter-header h1{font-size:clamp(52px,6vw,78px);margin-bottom:14px;letter-spacing:-1.5px;line-height:1.04}
+.chapter-header> .container>p:last-child{max-width:680px;color:var(--muted);font-size:17px;line-height:1.7}
+
+/* Same two-column rhythm as lesson/content pages */
+.chapter-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:55px;align-items:start}
+.chapter-sidebar{position:sticky;top:100px;align-self:start;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:12px;box-shadow:none}
+.sidebar-title{font-size:15px;font-weight:700;padding:10px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.sidebar-link{display:block;padding:9px 10px;border-radius:7px;color:var(--muted);font-size:12px;line-height:1.4;transition:.2s}
+.sidebar-link:hover{background:var(--soft);color:var(--ink)}
+.sidebar-link.active{background:var(--soft);color:var(--ink);font-weight:700}
+
 .lesson-content{max-width:760px;padding-bottom:30px}
-.lesson-section{position:relative;padding:0 0 58px;margin:0 0 58px;border-bottom:1px solid #ddd5c8;scroll-margin-top:105px}
+.lesson-section{position:relative;padding:0 0 65px;margin:0 0 65px;border-bottom:1px solid var(--line);scroll-margin-top:105px}
 .lesson-section:last-child{border-bottom:0;margin-bottom:0}
-.lesson-number{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:#eee7da;color:#705d47;font-size:11px;font-weight:800;letter-spacing:.5px;margin-bottom:15px}
-.lesson-section h2{font-size:32px;letter-spacing:-1px;margin-bottom:15px}
-.lesson-section>p{color:#514b43;font-size:15px;line-height:1.8;max-width:700px;margin-bottom:15px}
-.concept-box,.solution-box,.tip-box{border-radius:16px;padding:22px 24px;margin:20px 0}
-.concept-box{background:#eee7da;border:1px solid #e1d8c9;border-left:4px solid #705d47}
-.solution-box{background:#fffdf8;border:1px solid #ddd5c8;box-shadow:0 8px 24px rgba(50,40,25,.045)}
-.tip-box{background:#f1ece3;border:1px solid #dfd6c8}
-.concept-box h3,.solution-box h3,.tip-box h3{font-size:17px;letter-spacing:-.3px;margin-bottom:7px}
-.concept-box p,.solution-box p,.tip-box p{color:#514b43;font-size:14px;line-height:1.7;margin:0}
-.math-box{font-family:"Cambria Math",Cambria,"Times New Roman",serif;background:#f4efe7;border:1px solid #e0d7ca;border-radius:12px;padding:14px 18px;margin:15px 0;text-align:center;font-size:20px;color:#2d2923}
-.solution-box .math-box{background:#fffdf8}
-.tip-box strong{color:#705d47}
+.lesson-number{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--soft);color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.5px;margin-bottom:15px}
+.lesson-section h2{font-size:36px;letter-spacing:-1px;line-height:1.04;margin-bottom:18px}
+.lesson-section>p{color:#4e4942;font-size:15px;line-height:1.75;max-width:700px;margin-bottom:12px}
+
+/* Content boxes use the same card language as the rest of the site */
+.concept-box,.solution-box,.tip-box{border-radius:13px;padding:22px;margin:20px 0}
+.concept-box{background:var(--soft);border-left:4px solid var(--accent);border-top:0;border-right:0;border-bottom:0}
+.solution-box{background:var(--white);border:1px solid var(--line);box-shadow:none}
+.tip-box{background:#eee9df;border:0}
+.concept-box h3,.solution-box h3,.tip-box h3{font-size:22px;letter-spacing:-.5px;margin-bottom:10px}
+.concept-box p,.solution-box p,.tip-box p{color:#4e4942;font-size:14px;line-height:1.7;margin:0}
+
+.math-box{font-family:"Cambria Math",Cambria,"Times New Roman",serif;background:#f0ebe1;border:0;border-radius:9px;padding:14px 18px;margin:12px 0;text-align:center;font-size:20px;color:var(--ink)}
+.solution-box .math-box{background:#f0ebe1}
+.tip-box strong{color:var(--accent)}
+
 .summary-list{list-style:none;padding:0;margin:20px 0 28px;display:grid;gap:9px}
-.summary-list li{position:relative;background:#fffdf8;border:1px solid #e2dacf;border-radius:10px;padding:11px 14px 11px 34px;color:#514b43;font-size:14px;line-height:1.5}
-.summary-list li:before{content:"✓";position:absolute;left:13px;top:10px;color:#705d47;font-weight:800}
-.lesson-content .btn{margin-top:4px}
-.lesson-content .btn-dark{display:inline-flex;background:#2d2923;color:#fff;padding:13px 18px;border-radius:10px;font-size:13px;font-weight:700;transition:.2s}
+.summary-list li{position:relative;background:var(--white);border:1px solid var(--line);border-radius:10px;padding:11px 14px 11px 34px;color:#4e4942;font-size:14px;line-height:1.5}
+.summary-list li:before{content:"✓";position:absolute;left:13px;top:10px;color:var(--accent);font-weight:800}
+.lesson-content .btn-dark{display:inline-flex;background:var(--ink);color:#fff;padding:14px 20px;border-radius:11px;font-size:14px;font-weight:700;transition:.2s}
 .lesson-content .btn-dark:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(45,41,35,.16)}
-@media(max-width:900px){.chapter-layout{grid-template-columns:1fr;gap:30px}.chapter-sidebar{position:static;display:flex;flex-wrap:wrap;align-items:center;gap:4px}.sidebar-title{width:100%;margin-bottom:3px}.sidebar-link{flex:1 1 auto;text-align:center}.lesson-content{max-width:none}}
-@media(max-width:600px){.chapter-header{padding:55px 0 45px}.chapter-header h1{font-size:48px}.chapter-layout{gap:24px}.chapter-sidebar{padding:10px}.sidebar-link{font-size:12px;padding:9px 8px}.lesson-section{padding-bottom:42px;margin-bottom:42px}.lesson-section h2{font-size:27px}.lesson-section>p{font-size:14px}.concept-box,.solution-box,.tip-box{padding:18px}.math-box{font-size:18px;overflow-x:auto}.summary-list li{font-size:13px}}
+
+@media(max-width:800px){
+  .chapter-header{padding:55px 0 60px}
+  .chapter-layout{grid-template-columns:1fr;gap:30px}
+  .chapter-sidebar{position:static}
+  .lesson-content{max-width:none}
+}
+@media(max-width:600px){
+  .chapter-header h1{font-size:52px}
+  .chapter-layout{gap:24px}
+  .chapter-sidebar{padding:10px}
+  .sidebar-link{font-size:12px;padding:9px 8px}
+  .lesson-section{padding-bottom:42px;margin-bottom:42px}
+  .lesson-section h2{font-size:29px}
+  .lesson-section>p{font-size:14px}
+  .concept-box,.solution-box,.tip-box{padding:18px}
+  .math-box{font-size:18px;overflow-x:auto}
+}
