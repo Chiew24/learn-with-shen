@@ -1,0 +1,245 @@
+/* =========================================================
+   Learn with Shen — Shared Header
+   Edit this file to change the header across the whole site.
+   ========================================================= */
+
+:root {
+  --header-bg: #f7f3eb;
+  --header-border: #ded7c9;
+  --header-text: #2f2a24;
+  --header-muted: #6f665b;
+  --header-accent: #2f2a24;
+  --header-shadow: 0 4px 18px rgba(45, 38, 30, 0.04);
+}
+
+/* Shared header shell */
+.site-header,
+.navbar {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--header-border);
+  color: var(--header-text);
+  position: relative;
+  z-index: 1000;
+  box-shadow: var(--header-shadow);
+  font-family: "Times New Roman", Times, serif;
+}
+
+/* Home header */
+.site-header {
+  min-height: 82px;
+  padding: 0 5.5vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.site-header .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--header-text);
+  text-decoration: none;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.site-header .logo img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  display: block;
+}
+
+.site-header .logo-wordmark {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.site-header .logo-wordmark strong {
+  font-weight: 700;
+}
+
+/* Inner-page header */
+.navbar {
+  min-height: 82px;
+}
+
+.navbar .container.nav {
+  min-height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.navbar .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--header-text);
+  text-decoration: none;
+  font-size: 21px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.navbar .logo::before {
+  content: "";
+  width: 48px;
+  height: 48px;
+  background: url("../logo.png") center / contain no-repeat;
+  display: block;
+  flex: 0 0 48px;
+}
+
+.navbar nav,
+.site-header .nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.navbar nav > a,
+.navbar .drop > a,
+.site-header .nav > a,
+.site-header .nav-drop-btn {
+  color: var(--header-text);
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 600;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.navbar nav > a:hover,
+.navbar .drop > a:hover,
+.site-header .nav > a:hover,
+.site-header .nav-drop-btn:hover {
+  color: var(--header-muted);
+}
+
+/* Dropdown */
+.navbar .drop,
+.site-header .nav-dropdown {
+  position: relative;
+}
+
+.navbar .drop > div,
+.site-header .dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 150px;
+  padding: 8px;
+  background: #fffdf8;
+  border: 1px solid var(--header-border);
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(45, 38, 30, 0.12);
+  display: none;
+}
+
+.navbar .drop:hover > div,
+.navbar .drop:focus-within > div,
+.site-header .nav-dropdown:hover .dropdown-menu,
+.site-header .nav-dropdown:focus-within .dropdown-menu {
+  display: grid;
+}
+
+.navbar .drop > div a,
+.site-header .dropdown-menu a {
+  color: var(--header-text);
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.navbar .drop > div a:hover,
+.site-header .dropdown-menu a:hover {
+  background: #eee7da;
+}
+
+.site-header .nav-drop-btn {
+  border: 0;
+  background: transparent;
+  padding: 8px 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.site-header .nav-drop-btn span {
+  font-size: 13px;
+  margin-left: 4px;
+}
+
+/* Menu buttons */
+.site-header .menu-toggle,
+.navbar .menu {
+  border: 1px solid var(--header-border);
+  background: #fffdf8;
+  color: var(--header-text);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .site-header {
+    min-height: 70px;
+    padding: 0 20px;
+  }
+
+  .site-header .logo img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .site-header .logo-wordmark {
+    font-size: 19px;
+  }
+
+  .navbar .container.nav {
+    min-height: 70px;
+    padding: 0 20px;
+  }
+
+  .navbar .logo {
+    font-size: 19px;
+  }
+
+  .navbar .logo::before {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+
+  .navbar nav,
+  .site-header .nav {
+    gap: 18px;
+  }
+
+  .navbar nav > a,
+  .navbar .drop > a,
+  .site-header .nav > a,
+  .site-header .nav-drop-btn {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-header .nav,
+  .navbar nav {
+    display: none;
+  }
+
+  .site-header .menu-toggle,
+  .navbar .menu {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
