@@ -1,62 +1,111 @@
-/* Shared footer — current HTML structure */
-footer.footer{
-  background:#2d2923;
-  color:#fff;
-  padding:48px 0 0;
-  margin-top:0;
+/* =========================================================
+   SHARED FOOTER
+   One design for every page on Learn with Shen
+   ========================================================= */
+
+footer,
+footer.footer {
+  background: #2d2923;
+  color: #ffffff;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
-.footer-container{
-  width:min(1120px,92%);
-  margin:0 auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:48px;
-  padding-bottom:34px;
+
+footer .container,
+.footer-container {
+  width: min(1120px, 92%);
+  margin: 0 auto;
 }
-.footer-container h3{
-  font-family:"Times New Roman",Times,serif;
-  font-size:21px;
-  line-height:1.2;
-  letter-spacing:-.3px;
-  margin:0 0 7px;
+
+footer .foot,
+.footer-container {
+  min-height: 160px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 46px 0 34px;
 }
-.footer-container p{
-  margin:0;
-  color:#c8c0b5;
-  font-size:14px;
-  line-height:1.6;
+
+footer h3,
+.footer-container h3 {
+  margin: 0 0 5px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.2px;
 }
-.footer-links{
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  flex-wrap:wrap;
-  gap:12px 24px;
+
+footer p,
+.footer-container p {
+  margin: 0;
+  color: #c8c0b5;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 15px;
+  line-height: 1.5;
 }
-.footer-links a{
-  color:#d8d0c5;
-  font-size:14px;
-  line-height:1.5;
-  transition:color .2s,transform .2s;
+
+footer .flinks,
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  padding-top: 2px;
 }
-.footer-links a:hover{
-  color:#fff;
-  transform:translateY(-1px);
+
+footer .flinks a,
+.footer-links a {
+  color: #d8d0c5;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: nowrap;
+  transition: color 0.2s ease;
 }
-.footer-bottom{
-  width:min(1120px,92%);
-  margin:0 auto;
-  border-top:1px solid rgba(255,255,255,.12);
-  padding:16px 0 19px;
-  color:#a39b91;
-  font-size:12px;
-  text-align:center;
+
+footer .flinks a:hover,
+.footer-links a:hover {
+  color: #ffffff;
 }
-@media(max-width:700px){
-  footer.footer{padding-top:38px}
-  .footer-container{flex-direction:column;gap:24px;padding-bottom:28px}
-  .footer-links{justify-content:flex-start;gap:10px 18px}
-  .footer-links a{font-size:13px}
-  .footer-bottom{font-size:11px}
+
+footer .copy,
+.footer-bottom {
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 18px 20px 19px;
+  color: #a39b91;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  footer .foot,
+  .footer-container {
+    min-height: auto;
+    flex-direction: column;
+    gap: 24px;
+    padding: 38px 0 30px;
+  }
+
+  footer .flinks,
+  .footer-links {
+    justify-content: flex-start;
+    gap: 10px 18px;
+  }
+
+  footer .flinks a,
+  .footer-links a {
+    font-size: 13px;
+  }
+
+  footer .copy,
+  .footer-bottom {
+    font-size: 11px;
+  }
 }
