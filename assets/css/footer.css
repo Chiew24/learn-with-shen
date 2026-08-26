@@ -1,25 +1,38 @@
 /* =========================================================
-   SHARED FOOTER
-   One design for every page on Learn with Shen
+   Learn with Shen — Shared Footer
+   One footer design for every page.
    ========================================================= */
+
+:root {
+  --footer-bg: #2d2923;
+  --footer-text: #ffffff;
+  --footer-muted: #c8c0b5;
+  --footer-link: #d8d0c5;
+  --footer-border: rgba(255,255,255,.12);
+}
 
 footer,
 footer.footer {
-  background: #2d2923;
-  color: #ffffff;
-  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
+  background: var(--footer-bg);
+  color: var(--footer-text);
   border: 0;
+  font-family: "Times New Roman", Times, serif;
 }
 
 footer .container,
-.footer-container {
+footer .foot,
+footer .footer-container {
   width: min(1120px, 92%);
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 footer .foot,
-.footer-container {
+footer .footer-container {
   min-height: 160px;
   display: flex;
   align-items: flex-start;
@@ -29,26 +42,23 @@ footer .foot,
 }
 
 footer h3,
-.footer-container h3 {
+footer .footer-container h3 {
   margin: 0 0 5px;
-  font-family: "Times New Roman", Times, serif;
   font-size: 20px;
   line-height: 1.2;
   font-weight: 700;
-  letter-spacing: -0.2px;
 }
 
 footer p,
-.footer-container p {
+footer .footer-container p {
   margin: 0;
-  color: #c8c0b5;
-  font-family: "Times New Roman", Times, serif;
+  color: var(--footer-muted);
   font-size: 15px;
   line-height: 1.5;
 }
 
 footer .flinks,
-.footer-links {
+footer .footer-links {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -58,27 +68,27 @@ footer .flinks,
 }
 
 footer .flinks a,
-.footer-links a {
-  color: #d8d0c5;
-  font-family: "Times New Roman", Times, serif;
+footer .footer-links a {
+  color: var(--footer-link);
   font-size: 14px;
   line-height: 1.5;
+  text-decoration: none;
   white-space: nowrap;
-  transition: color 0.2s ease;
+  transition: color .2s ease, opacity .2s ease;
 }
 
 footer .flinks a:hover,
-.footer-links a:hover {
-  color: #ffffff;
+footer .footer-links a:hover {
+  color: #fff;
 }
 
 footer .copy,
-.footer-bottom {
+footer .footer-bottom {
   width: 100%;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  box-sizing: border-box;
+  border-top: 1px solid var(--footer-border);
   padding: 18px 20px 19px;
   color: #a39b91;
-  font-family: "Times New Roman", Times, serif;
   font-size: 12px;
   line-height: 1.4;
   text-align: center;
@@ -86,7 +96,7 @@ footer .copy,
 
 @media (max-width: 700px) {
   footer .foot,
-  .footer-container {
+  footer .footer-container {
     min-height: auto;
     flex-direction: column;
     gap: 24px;
@@ -94,18 +104,18 @@ footer .copy,
   }
 
   footer .flinks,
-  .footer-links {
+  footer .footer-links {
     justify-content: flex-start;
     gap: 10px 18px;
   }
 
   footer .flinks a,
-  .footer-links a {
+  footer .footer-links a {
     font-size: 13px;
   }
 
   footer .copy,
-  .footer-bottom {
+  footer .footer-bottom {
     font-size: 11px;
   }
 }
