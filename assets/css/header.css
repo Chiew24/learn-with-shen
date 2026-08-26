@@ -1,6 +1,6 @@
 /* =========================================================
    Learn with Shen — Shared Header
-   Edit this file to change the header across the whole site.
+   The same header style is used on Home and every inner page.
    ========================================================= */
 
 :root {
@@ -8,42 +8,60 @@
   --header-border: #ded7c9;
   --header-text: #2f2a24;
   --header-muted: #6f665b;
-  --header-accent: #2f2a24;
-  --header-shadow: 0 4px 18px rgba(45, 38, 30, 0.04);
 }
 
-/* Shared header shell */
 .site-header,
 .navbar {
   width: 100%;
+  min-height: 82px;
   box-sizing: border-box;
+  padding: 0 5.5vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
   background: var(--header-bg);
   border-bottom: 1px solid var(--header-border);
   color: var(--header-text);
   position: relative;
   z-index: 1000;
-  box-shadow: var(--header-shadow);
+  box-shadow: 0 4px 18px rgba(45, 38, 30, 0.04);
   font-family: "Times New Roman", Times, serif;
 }
 
-/* Home header */
-.site-header {
+/* Make inner-page structure behave exactly like Home */
+.navbar .container.nav {
+  width: 100%;
   min-height: 82px;
-  padding: 0 5.5vw;
+  margin: 0;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 28px;
 }
 
-.site-header .logo {
+.site-header .logo,
+.navbar .logo {
   display: inline-flex;
   align-items: center;
   gap: 12px;
   color: var(--header-text);
   text-decoration: none;
+  font-size: 22px;
+  line-height: 1;
   font-weight: 700;
   white-space: nowrap;
+}
+
+/* Inner pages use the same logo image as Home */
+.navbar .logo::before {
+  content: "";
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  display: block;
+  background: url("../images/logo.png") center / contain no-repeat;
 }
 
 .site-header .logo img {
@@ -53,50 +71,13 @@
   display: block;
 }
 
-.site-header .logo-wordmark {
-  font-size: 22px;
-  line-height: 1;
-}
-
-.site-header .logo-wordmark strong {
+.site-header .logo-wordmark strong,
+.navbar .logo span {
   font-weight: 700;
 }
 
-/* Inner-page header */
-.navbar {
-  min-height: 82px;
-}
-
-.navbar .container.nav {
-  min-height: 82px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 28px;
-}
-
-.navbar .logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--header-text);
-  text-decoration: none;
-  font-size: 21px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.navbar .logo::before {
-  content: "";
-  width: 48px;
-  height: 48px;
-  background: url("../logo.png") center / contain no-repeat;
-  display: block;
-  flex: 0 0 48px;
-}
-
-.navbar nav,
-.site-header .nav {
+.site-header .nav,
+.navbar nav {
   display: flex;
   align-items: center;
   gap: 30px;
@@ -110,13 +91,14 @@
   text-decoration: none;
   font-size: 17px;
   font-weight: 600;
-  transition: opacity 0.2s ease, color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .navbar nav > a:hover,
 .navbar .drop > a:hover,
 .site-header .nav > a:hover,
-.site-header .nav-drop-btn:hover {
+.site-header .nav-drop-btn:hover,
+.navbar nav > a.active {
   color: var(--header-muted);
 }
 
@@ -160,21 +142,9 @@
 }
 
 .navbar .drop > div a:hover,
+.navbar .drop > div a.selected,
 .site-header .dropdown-menu a:hover {
   background: #eee7da;
-}
-
-.site-header .nav-drop-btn {
-  border: 0;
-  background: transparent;
-  padding: 8px 0;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.site-header .nav-drop-btn span {
-  font-size: 13px;
-  margin-left: 4px;
 }
 
 /* Menu buttons */
@@ -188,37 +158,31 @@
 }
 
 @media (max-width: 800px) {
-  .site-header {
+  .site-header,
+  .navbar {
     min-height: 70px;
     padding: 0 20px;
-  }
-
-  .site-header .logo img {
-    width: 50px;
-    height: 50px;
-  }
-
-  .site-header .logo-wordmark {
-    font-size: 19px;
   }
 
   .navbar .container.nav {
     min-height: 70px;
-    padding: 0 20px;
+    padding: 0;
   }
 
+  .site-header .logo img,
+  .navbar .logo::before {
+    width: 50px;
+    height: 50px;
+    flex-basis: 50px;
+  }
+
+  .site-header .logo-wordmark,
   .navbar .logo {
     font-size: 19px;
   }
 
-  .navbar .logo::before {
-    width: 44px;
-    height: 44px;
-    flex-basis: 44px;
-  }
-
-  .navbar nav,
-  .site-header .nav {
+  .site-header .nav,
+  .navbar nav {
     gap: 18px;
   }
 
