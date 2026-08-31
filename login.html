@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Admin login for Learn with Shen.">
+  <title>Admin Login | Learn with Shen</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/typography.css">
+  <link rel="stylesheet" href="assets/css/logo.css">
+  <link rel="stylesheet" href="assets/css/header.css">
+  <link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body class="login-page">
+  <header class="site-header">
+    <a class="logo" href="index.html" aria-label="Learn with Shen home">
+      <img src="assets/images/logo.png" alt="Learn with Shen logo">
+      <span class="logo-wordmark">Learn with <strong>Shen</strong></span>
+    </a>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <div class="nav-dropdown">
+        <button class="nav-drop-btn">Learn <span>▾</span></button>
+        <div class="dropdown-menu"><a href="form4.html">Form 4</a><a href="form5.html">Form 5</a></div>
+      </div>
+      <a href="question-bank.html">Question Bank</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <main class="login-main">
+    <section class="login-card" aria-labelledby="login-title">
+      <div class="login-mark">LS</div>
+      <p class="login-eyebrow">LEARN WITH SHEN</p>
+      <h1 id="login-title">Admin Login</h1>
+      <p class="login-subtitle">Sign in to manage your learning content.</p>
+
+      <form id="login-form" novalidate>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="username" placeholder="admin@example.com" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+
+        <button id="login-button" class="login-button" type="submit">Sign In</button>
+        <p id="login-message" class="login-message" role="alert" aria-live="polite"></p>
+      </form>
+
+      <a class="back-home" href="index.html">← Back to Learn with Shen</a>
+    </section>
+  </main>
+
+  <script type="module" src="assets/js/auth.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
