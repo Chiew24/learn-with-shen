@@ -18,7 +18,7 @@ async function loadChapters() {
   chapter.innerHTML='<option value="">Select a chapter</option>' + (data||[]).map(c=>`<option value="${c.id}">Form ${c.form} — Chapter ${c.chapter_number} — ${esc(c.title)}</option>`).join('');
 }
 function esc(v=''){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
-function reset(){form.reset();$('#exercise-id').value='';$('#form-title').textContent='Add Question';formMsg.textContent='';}
+function reset(){form.reset();$('#exercise-id').value='';$('#exercise-published').value='false';$('#form-title').textContent='Add Question';formMsg.textContent='';}
 async function loadExercises(){
   body.innerHTML='<tr><td colspan="5">Loading...</td></tr>';
   const {data,error}=await supabase.from('exercises').select('id,title,question,difficulty,is_published,chapter_id,chapters(form,chapter_number,title)').order('created_at',{ascending:false});
@@ -30,10 +30,14 @@ $('#new-exercise-button').onclick=()=>{reset();panel.hidden=false;};
 $('#cancel-button').onclick=()=>panel.hidden=true;
 $('#logout-button').onclick=async()=>{await supabase.auth.signOut();location.href='login.html';};
 form.onsubmit=async ev=>{
-  ev.preventDefault(); formMsg.textContent='Saving...';
+  ev.preventDefault();
+  const submitter=ev.submitter;
+  const published=submitter?.dataset.published==='true';
+  $('#exercise-published').value=published?'true':'false';
+  formMsg.textContent=published?'Publishing...':'Saving draft...';
   const id=$('#exercise-id').value, marks=$('#marks').value, chapterId=Number(chapter.value);
   const {data: firstTopic}=await supabase.from('topics').select('id').eq('chapter_id',chapterId).order('display_order').limit(1).maybeSingle();
-  const payload={chapter_id:chapterId,topic_id:firstTopic?.id||null,title:$('#exercise-title').value.trim()||null,question:$('#question').value.trim(),answer:$('#answer').value.trim()||null,solution:$('#solution').value.trim()||null,difficulty:$('#difficulty').value||null,marks:marks?Number(marks):null,is_published:$('#exercise-published').checked,updated_at:new Date().toISOString()};
+  const payload={chapter_id:chapterId,topic_id:firstTopic?.id||null,title:$('#exercise-title').value.trim()||null,question:$('#question').value.trim(),answer:$('#answer').value.trim()||null,solution:$('#solution').value.trim()||null,difficulty:$('#difficulty').value||null,marks:marks?Number(marks):null,is_published:published,updated_at:new Date().toISOString()};
   if(!payload.chapter_id||!payload.question){formMsg.textContent='Please select a chapter and enter a question.';return;}
   const r=id?await supabase.from('exercises').update(payload).eq('id',id):await supabase.from('exercises').insert(payload);
   if(r.error){formMsg.textContent=r.error.message;return;}
@@ -41,7 +45,7 @@ form.onsubmit=async ev=>{
 };
 body.onclick=async ev=>{
   const edit=ev.target.closest('[data-edit]'), del=ev.target.closest('[data-delete]');
-  if(edit){const {data,error}=await supabase.from('exercises').select('*').eq('id',edit.dataset.edit).single();if(error){msg.textContent=error.message;return;}let chapterId=data.chapter_id;if(!chapterId&&data.topic_id){const {data:t}=await supabase.from('topics').select('chapter_id').eq('id',data.topic_id).single();chapterId=t?.chapter_id;}$('#exercise-id').value=data.id;chapter.value=chapterId||'';$('#exercise-title').value=data.title||'';$('#question').value=data.question||'';$('#answer').value=data.answer||'';$('#solution').value=data.solution||'';$('#difficulty').value=data.difficulty||'';$('#marks').value=data.marks||'';$('#exercise-published').checked=!!data.is_published;$('#form-title').textContent='Edit Question';panel.hidden=false;}
+  if(edit){const {data,error}=await supabase.from('exercises').select('*').eq('id',edit.dataset.edit).single();if(error){msg.textContent=error.message;return;}let chapterId=data.chapter_id;if(!chapterId&&data.topic_id){const {data:t}=await supabase.from('topics').select('chapter_id').eq('id',data.topic_id).single();chapterId=t?.chapter_id;}$('#exercise-id').value=data.id;chapter.value=chapterId||'';$('#exercise-title').value=data.title||'';$('#question').value=data.question||'';$('#answer').value=data.answer||'';$('#solution').value=data.solution||'';$('#difficulty').value=data.difficulty||'';$('#marks').value=data.marks||'';$('#exercise-published').value=String(!!data.is_published);$('#form-title').textContent='Edit Question';panel.hidden=false;}
   if(del&&confirm('Delete this question?')){const {error}=await supabase.from('exercises').delete().eq('id',del.dataset.delete);if(error)msg.textContent=error.message;else await loadExercises();}
 };
 if(await requireAdmin()){await loadChapters();await loadExercises();}
