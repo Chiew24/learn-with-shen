@@ -13,59 +13,21 @@ const message = document.getElementById('login-message');
 async function redirectIfAlreadyLoggedIn() {
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) return;
-
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('role')
-    .eq('id', session.user.id)
-    .maybeSingle();
-
-  if (profile?.role === 'admin') {
-    window.location.href = 'admin-dashboard.html';
-  } else {
-    await supabase.auth.signOut();
-  }
+  const { data: profile } = await supabase.from('profiles').select('role').eq('id', session.user.id).maybeSingle();
+  if (profile?.role === 'admin') window.location.href = 'admin/index.html';
+  else await supabase.auth.signOut();
 }
 
 form?.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  message.textContent = '';
-
-  const email = emailInput.value.trim();
-  const password = passwordInput.value;
-
-  if (!email || !password) {
-    message.textContent = 'Please enter your email and password.';
-    return;
-  }
-
-  button.disabled = true;
-  button.textContent = 'Signing in...';
-
+  event.preventDefault(); message.textContent = '';
+  const email = emailInput.value.trim(); const password = passwordInput.value;
+  if (!email || !password) { message.textContent = 'Please enter your email and password.'; return; }
+  button.disabled = true; button.textContent = 'Signing in...';
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-  if (error) {
-    message.textContent = error.message || 'Unable to sign in. Please check your details.';
-    button.disabled = false;
-    button.textContent = 'Sign In';
-    return;
-  }
-
-  const { data: profile, error: profileError } = await supabase
-    .from('profiles')
-    .select('role')
-    .eq('id', data.user.id)
-    .maybeSingle();
-
-  if (profileError || profile?.role !== 'admin') {
-    await supabase.auth.signOut();
-    message.textContent = 'This account does not have admin access.';
-    button.disabled = false;
-    button.textContent = 'Sign In';
-    return;
-  }
-
-  window.location.href = 'admin-dashboard.html';
+  if (error) { message.textContent = error.message || 'Unable to sign in. Please check your details.'; button.disabled = false; button.textContent = 'Sign In'; return; }
+  const { data: profile, error: profileError } = await supabase.from('profiles').select('role').eq('id', data.user.id).maybeSingle();
+  if (profileError || profile?.role !== 'admin') { await supabase.auth.signOut(); message.textContent = 'This account does not have admin access.'; button.disabled = false; button.textContent = 'Sign In'; return; }
+  window.location.href = 'admin/index.html';
 });
 
 redirectIfAlreadyLoggedIn();
