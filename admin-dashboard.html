@@ -1,59 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Learn with Shen admin dashboard.">
   <title>Admin Dashboard | Learn with Shen</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/typography.css">
-  <link rel="stylesheet" href="assets/css/logo.css">
-  <link rel="stylesheet" href="assets/css/header.css">
-  <link rel="stylesheet" href="assets/css/admin.css">
+  <link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/typography.css"><link rel="stylesheet" href="assets/css/logo.css"><link rel="stylesheet" href="assets/css/header.css"><link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body class="admin-page">
-  <header class="site-header">
-    <a class="logo" href="index.html" aria-label="Learn with Shen home">
-      <img src="assets/images/logo.png" alt="Learn with Shen logo">
-      <span class="logo-wordmark">Learn with <strong>Shen</strong></span>
-    </a>
-    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a class="active" href="admin-dashboard.html">Dashboard</a>
-      <button id="logout-button" class="admin-logout" type="button">Logout</button>
-    </nav>
-  </header>
-
-  <main class="admin-main">
-    <div class="admin-heading">
-      <div>
-        <p class="admin-eyebrow">LEARN WITH SHEN</p>
-        <h1>Admin Dashboard</h1>
-        <p>Manage your mathematics learning content from one place.</p>
-      </div>
-    </div>
-
-    <section class="admin-stats" aria-label="Content statistics">
-      <article><span>Chapters</span><strong id="chapter-count">—</strong></article>
-      <article><span>Topics</span><strong id="topic-count">—</strong></article>
-      <article><span>Notes</span><strong id="note-count">—</strong></article>
-      <article><span>Exercises</span><strong id="exercise-count">—</strong></article>
-    </section>
-
-    <section class="admin-actions">
-      <h2>Content Management</h2>
-      <div class="admin-action-grid">
-        <a href="#" class="admin-action disabled" aria-disabled="true"><strong>📚 Manage Chapters</strong><span>Coming next</span></a>
-        <a href="#" class="admin-action disabled" aria-disabled="true"><strong>📝 Manage Notes</strong><span>Coming next</span></a>
-        <a href="#" class="admin-action disabled" aria-disabled="true"><strong>✏️ Manage Exercises</strong><span>Coming next</span></a>
-      </div>
-    </section>
-
-    <p id="admin-message" class="admin-message" role="alert" aria-live="polite"></p>
-  </main>
-
-  <script type="module" src="assets/js/admin.js"></script>
-  <script src="assets/js/script.js"></script>
-</body>
-</html>
+<header class="site-header"><a class="logo" href="index.html"><img src="assets/images/logo.png" alt="Learn with Shen logo"><span class="logo-wordmark">Learn with <strong>Shen</strong></span></a><button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button><nav class="nav"><a href="index.html">Home</a><a class="active" href="admin-dashboard.html">Dashboard</a><button id="logout-button" class="admin-logout" type="button">Logout</button></nav></header>
+<main class="admin-main"><div class="admin-heading"><div><p class="admin-eyebrow">LEARN WITH SHEN</p><h1>Admin Dashboard</h1><p>Manage your mathematics learning content from one place.</p></div></div>
+<section class="admin-stats" aria-label="Content statistics"><article><span>Chapters</span><strong id="chapter-count">—</strong></article><article><span>Topics</span><strong id="topic-count">—</strong></article><article><span>Notes</span><strong id="note-count">—</strong></article><article><span>Exercises</span><strong id="exercise-count">—</strong></article></section>
+<section class="admin-actions"><h2>Content Management</h2><div class="admin-action-grid"><a href="admin-chapters.html" class="admin-action"><strong>📚 Manage Chapters</strong><span>Add, edit and publish chapters →</span></a><a href="admin-notes.html" class="admin-action"><strong>📝 Manage Notes</strong><span>Add, edit and publish notes →</span></a><a href="admin-exercises.html" class="admin-action"><strong>✏️ Manage Exercises</strong><span>Manage practice questions →</span></a></div></section>
+<p id="admin-message" class="admin-message" role="alert" aria-live="polite"></p></main>
+<script type="module" src="assets/js/admin.js"></script><script src="assets/js/script.js"></script>
+</body></html>
