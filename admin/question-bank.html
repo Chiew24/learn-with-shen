@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Manage the Learn with Shen question bank.">
-<title>Manage Question Bank | Learn with Shen</title>
+<title>Question Bank | Learn with Shen</title>
 <link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="../assets/css/typography.css">
 <link rel="stylesheet" href="../assets/css/logo.css">
 <link rel="stylesheet" href="../assets/css/header.css">
 <link rel="stylesheet" href="../assets/css/admin.css">
 <style>
-.question-form-panel{margin-bottom:32px}.question-form{display:grid;gap:18px}.question-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.question-form label{display:grid;gap:8px;font-weight:700}.question-form input,.question-form textarea,.question-form select{width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid #d9cfbd;border-radius:10px;background:#fffdf8;font:inherit;color:#302c27}.question-form textarea{min-height:110px;resize:vertical}.question-form .full{grid-column:1/-1}.question-form-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.question-form button{border:1px solid #6e5b43;border-radius:10px;padding:11px 18px;background:#6e5b43;color:#fffdf8;font:inherit;font-weight:700;cursor:pointer}.question-form button:disabled{opacity:.6;cursor:not-allowed}.publish-option{display:flex!important;align-items:center;grid-template-columns:auto 1fr;gap:9px!important}.publish-option input{width:auto}.form-message{margin:0;font-weight:600}.question-bank-question{max-width:360px}.question-bank-answer,.question-bank-solution{max-width:260px}@media(max-width:700px){.question-form-grid{grid-template-columns:1fr}.question-form .full{grid-column:auto}}
+.question-bank-actions{display:flex;justify-content:flex-end;margin-bottom:20px}.add-question-link{display:inline-flex;align-items:center;text-decoration:none;border:1px solid #6e5b43;border-radius:10px;padding:11px 18px;background:#6e5b43;color:#fffdf8;font-weight:700}.question-bank-question{max-width:360px}.question-bank-answer,.question-bank-solution{max-width:260px}
 </style>
 </head>
 <body class="admin-page">
@@ -22,41 +22,7 @@
 </header>
 <main class="admin-main">
   <div class="admin-heading"><div><p class="admin-eyebrow">LEARN WITH SHEN</p><h1>Question Bank</h1><p>Manage your questions, answers and solutions.</p></div></div>
-
-  <section class="admin-panel question-form-panel">
-    <div class="admin-heading" style="margin-bottom:20px"><div><h2>Add Question</h2><p>Create a new question for the question bank.</p></div></div>
-    <form id="question-form" class="question-form">
-      <div class="question-form-grid">
-        <label class="full">Question
-          <textarea id="question-input" required placeholder="Enter the question"></textarea>
-        </label>
-        <label>Topic
-          <select id="topic-input" required><option value="">Loading topics...</option></select>
-        </label>
-        <label>Difficulty
-          <select id="difficulty-input"><option value="easy">easy</option><option value="medium">medium</option><option value="hard">hard</option></select>
-        </label>
-        <label>Marks
-          <input id="marks-input" type="number" min="0" step="1" placeholder="e.g. 5">
-        </label>
-        <label class="full">Hint
-          <textarea id="hint-input" placeholder="Optional hint shown when the user clicks Hint"></textarea>
-        </label>
-        <label class="full">Answer
-          <textarea id="answer-input" placeholder="Enter the answer"></textarea>
-        </label>
-        <label class="full">Step-by-Step Solution
-          <textarea id="solution-input" placeholder="Enter the step-by-step solution"></textarea>
-        </label>
-      </div>
-      <div class="question-form-actions">
-        <label class="publish-option"><input id="publish-input" type="checkbox"> Publish immediately</label>
-        <button id="add-question-button" type="submit">Add Question</button>
-        <p id="question-form-message" class="form-message" role="status" aria-live="polite"></p>
-      </div>
-    </form>
-  </section>
-
+  <div class="question-bank-actions"><a href="add-question.html" class="add-question-link">+ Add Question</a></div>
   <section class="question-bank-table-wrap" aria-label="Question Bank">
     <table class="question-bank-table">
       <thead><tr><th scope="col">Question Number</th><th scope="col">Question</th><th scope="col">Difficulty</th><th scope="col">Answer</th><th scope="col">Solution</th></tr></thead>
