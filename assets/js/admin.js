@@ -111,6 +111,8 @@ async function addQuestion(event) {
   if (!question || !chapter_id) { message.textContent = 'Please enter a question and select a chapter.'; return; }
   button.disabled = true;
   message.textContent = 'Adding question...';
+  const { error: normalizeError } = await renumberChapter(chapter_id);
+  if (normalizeError) { message.textContent = `Unable to check question numbering: ${normalizeError.message}`; button.disabled = false; return; }
   const { data: existing, error: existingError } = await getChapterQuestions(chapter_id);
   if (existingError) { message.textContent = `Unable to check question numbering: ${existingError.message}`; button.disabled = false; return; }
   const payload = { question, chapter_id, difficulty, display_order: existing.length + 1, hint, answer, solution, is_published };
