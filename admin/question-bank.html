@@ -10,14 +10,27 @@
 <link rel="stylesheet" href="../assets/css/logo.css">
 <link rel="stylesheet" href="../assets/css/header.css">
 <link rel="stylesheet" href="../assets/css/admin.css">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)'], ['$', '$']],
+    displayMath: [['\\[', '\\]'], ['$$', '$$']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
 .question-bank-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.question-bank-question{max-width:360px;line-height:1.5}
+.question-bank-question{max-width:500px;line-height:1.7;overflow:visible}
+.question-bank-question mjx-container{font-size:105%;margin:0 .08em}
 .question-bank-actions-cell{white-space:nowrap}
 .edit-question-link{display:inline-block;border:1px solid #d9d0c2;border-radius:8px;background:#fffdf9;padding:7px 11px;color:#705d47;font-weight:700;text-decoration:none;margin-right:5px}
 .edit-question-link:hover{background:#eee7da}
 .delete-question-button{color:#8b3f35!important}
-@media(max-width:700px){.question-bank-question{max-width:260px}}
+@media(max-width:700px){.question-bank-question{max-width:320px}}
 </style>
 </head>
 <body class="admin-page">
@@ -74,5 +87,23 @@
 
 <script type="module" src="../assets/js/admin.js"></script>
 <script src="../assets/js/script.js"></script>
+<script>
+(function waitForMathJax() {
+  const body = document.getElementById('question-bank-body');
+  if (!body) return;
+
+  const typeset = () => {
+    if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
+      window.MathJax.typesetPromise([body]).catch(() => {});
+    }
+  };
+
+  const observer = new MutationObserver(() => {
+    typeset();
+  });
+  observer.observe(body, { childList: true, subtree: true });
+  typeset();
+})();
+</script>
 </body>
 </html>
