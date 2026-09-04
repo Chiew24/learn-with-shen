@@ -6,6 +6,19 @@ const supabaseYear = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 const yearInput = () => document.getElementById('year-input');
 
+function escapeYearHtml(value) {
+  return String(value ?? '').replace(/[&<>\"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '\"':'&quot;', "'":'&#39;' }[char]));
+}
+
+function chapterYearLabel(chapter) {
+  return `Form ${chapter.form} · Chapter ${chapter.chapter_number} — ${chapter.title}`;
+}
+
+function difficultyLabel(value) {
+  if (!value) return '—';
+  return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+}
+
 async function loadYearForEdit() {
   const id = new URLSearchParams(window.location.search).get('id');
   const input = yearInput();
@@ -17,8 +30,7 @@ async function loadYearForEdit() {
 async function saveAdd(event) {
   const form = document.getElementById('question-form');
   const addButton = document.getElementById('add-question-button');
-  if (!form || !addButton || !event.target || event.target !== form) return;
-
+  if (!form || !addButton || event.target !== form) return;
   event.preventDefault();
   event.stopImmediatePropagation();
 
@@ -33,37 +45,17 @@ async function saveAdd(event) {
   const solution = document.getElementById('solution-input')?.value.trim() || null;
   const is_published = document.getElementById('publish-input')?.checked ?? false;
 
-  if (!question || !chapter_id) {
-    if (message) message.textContent = 'Please enter a question and select a chapter.';
-    return;
-  }
-  if (yearValue && (!Number.isInteger(year) || year < 1900 || year > 2100)) {
-    if (message) message.textContent = 'Please enter a valid year.';
-    return;
-  }
+  if (!question || !chapter_id) { if (message) message.textContent = 'Please enter a question and select a chapter.'; return; }
+  if (yearValue && (!Number.isInteger(year) || year < 1900 || year > 2100)) { if (message) message.textContent = 'Please enter a valid year.'; return; }
 
   addButton.disabled = true;
   if (message) message.textContent = 'Adding question...';
-
-  const { count, error: countError } = await supabaseYear
-    .from('exercises')
-    .select('*', { count: 'exact', head: true })
-    .eq('chapter_id', chapter_id);
-
-  if (countError) {
-    if (message) message.textContent = `Unable to check question numbering: ${countError.message}`;
-    addButton.disabled = false;
-    return;
-  }
+  const { count, error: countError } = await supabaseYear.from('exercises').select('*', { count: 'exact', head: true }).eq('chapter_id', chapter_id);
+  if (countError) { if (message) message.textContent = `Unable to check question numbering: ${countError.message}`; addButton.disabled = false; return; }
 
   const payload = { question, chapter_id, difficulty, year, display_order: (count ?? 0) + 1, hint, answer, solution, is_published };
   const { error } = await supabaseYear.from('exercises').insert(payload);
-
-  if (error) {
-    if (message) message.textContent = `Unable to add question: ${error.message}`;
-    addButton.disabled = false;
-    return;
-  }
+  if (error) { if (message) message.textContent = `Unable to add question: ${error.message}`; addButton.disabled = false; return; }
 
   form.reset();
   if (message) message.textContent = is_published ? 'Question added and published.' : 'Question added as draft.';
@@ -75,7 +67,6 @@ async function saveEdit(event) {
   const saveButton = document.getElementById('save-question-button');
   const id = new URLSearchParams(window.location.search).get('id');
   if (!form || !saveButton || !id || event.target !== form) return;
-
   event.preventDefault();
   event.stopImmediatePropagation();
 
@@ -90,40 +81,53 @@ async function saveEdit(event) {
   const solution = document.getElementById('solution-input')?.value.trim() || null;
   const is_published = document.getElementById('publish-input')?.checked ?? false;
 
-  if (!question || !newChapterId) {
-    if (message) message.textContent = 'Please enter a question and select a chapter.';
-    return;
-  }
-  if (yearValue && (!Number.isInteger(year) || year < 1900 || year > 2100)) {
-    if (message) message.textContent = 'Please enter a valid year.';
-    return;
-  }
+  if (!question || !newChapterId) { if (message) message.textContent = 'Please enter a question and select a chapter.'; return; }
+  if (yearValue && (!Number.isInteger(year) || year < 1900 || year > 2100)) { if (message) message.textContent = 'Please enter a valid year.'; return; }
 
   saveButton.disabled = true;
   if (message) message.textContent = 'Saving changes...';
-
   const { error } = await supabaseYear.from('exercises').update({ question, chapter_id: newChapterId, difficulty, year, hint, answer, solution, is_published }).eq('id', id);
-
-  if (error) {
-    if (message) message.textContent = `Unable to save changes: ${error.message}`;
-    saveButton.disabled = false;
-    return;
-  }
-
+  if (error) { if (message) message.textContent = `Unable to save changes: ${error.message}`; saveButton.disabled = false; return; }
   if (message) message.textContent = 'Question updated successfully.';
   saveButton.disabled = false;
 }
 
+async function loadQuestionBankWithYear() {
+  const body = document.getElementById('question-bank-body');
+  if (!body) return;
+
+  const { data: questions, error } = await supabaseYear.from('exercises')
+    .select('id,question,difficulty,display_order,is_published,chapter_id,year,created_at,chapters(form,chapter_number,title)')
+    .order('chapter_id').order('display_order', { ascending: true, nullsFirst: false }).order('created_at', { ascending: true });
+
+  if (error) { body.innerHTML = '<tr><td colspan="7">Unable to load questions.</td></tr>'; return; }
+  if (!questions?.length) { body.innerHTML = '<tr><td colspan="7">No questions found.</td></tr>'; return; }
+
+  body.innerHTML = questions.map(q => {
+    const chapter = Array.isArray(q.chapters) ? q.chapters[0] : q.chapters;
+    const chapterText = chapter ? chapterYearLabel(chapter) : '—';
+    const status = q.is_published ? '<span class="status-badge status-published">Published</span>' : '<span class="status-badge status-draft">Draft</span>';
+    return `<tr><td>${escapeYearHtml(q.display_order ?? '—')}</td><td>${escapeYearHtml(chapterText)}</td><td>${escapeYearHtml(q.year ?? '—')}</td><td class="question-bank-question">${escapeYearHtml(q.question ?? '')}</td><td>${escapeYearHtml(difficultyLabel(q.difficulty))}</td><td>${status}</td><td class="question-bank-actions-cell"><a class="edit-question-link" href="edit-question.html?id=${encodeURIComponent(q.id)}">Edit</a><button class="delete-question-button" type="button" data-question-id="${escapeYearHtml(q.id)}">Delete</button></td></tr>`;
+  }).join('');
+
+  body.querySelectorAll('.delete-question-button').forEach(button => {
+    button.addEventListener('click', () => {
+      const nativeDelete = window.__deleteQuestion;
+      if (typeof nativeDelete === 'function') nativeDelete(button.dataset.questionId);
+    });
+  });
+
+  if (window.MathJax?.typesetPromise) await window.MathJax.typesetPromise([body]).catch(() => {});
+}
+
 async function initYear() {
   const form = document.getElementById('question-form');
-  if (!form) return;
-
-  const isEdit = Boolean(document.getElementById('save-question-button'));
-  const isAdd = Boolean(document.getElementById('add-question-button'));
-
-  if (isEdit) await loadYearForEdit();
-
-  form.addEventListener('submit', isEdit ? saveEdit : saveAdd, true);
+  if (form) {
+    const isEdit = Boolean(document.getElementById('save-question-button'));
+    if (isEdit) await loadYearForEdit();
+    form.addEventListener('submit', isEdit ? saveEdit : saveAdd, true);
+  }
+  if (document.getElementById('question-bank-body')) await loadQuestionBankWithYear();
 }
 
 document.addEventListener('DOMContentLoaded', initYear);
