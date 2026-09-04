@@ -22,7 +22,7 @@ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 async function load(){
  const id=new URLSearchParams(location.search).get('id');
  if(!id){root.innerHTML='<div class="empty">Question not found.</div>';return;}
- const {data:q,error}=await supabase.from('exercises').select('id,question,answer,solution,hint,difficulty,marks,is_published,topic_id,created_at').eq('id',id).eq('is_published',true).single();
+ const {data:q,error}=await supabase.from('exercises').select('id,question,answer,solution,difficulty,marks,is_published,topic_id,created_at').eq('id',id).eq('is_published',true).single();
  if(error||!q){root.innerHTML='<div class="empty">Question not found or is not available.</div>';return;}
  const {data:chapter,error:ce}=await supabase.from('chapters').select('id').eq('form',4).eq('chapter_number',1).single();
  let questionNumber='Question';
@@ -35,7 +35,7 @@ async function load(){
      if(index>=0) questionNumber=`Question ${index+1}`;
    }
  }
- root.innerHTML=`<div class="question-head"><p class="eyebrow">FORM 4 · CHAPTER 1</p><div class="question-meta"><span class="question-number">${questionNumber}</span>${q.difficulty?`<span class="difficulty-pill">${esc(q.difficulty)}</span>`:''}</div></div><div class="question-detail"><section class="detail-card"><div class="detail-label">QUESTION</div><p class="detail-text">${esc(q.question)}</p></section>${q.hint?`<details class="detail-card hint-card"><summary class="hint-toggle">HINT</summary><div class="hint-content"><p class="detail-text">${esc(q.hint)}</p></div></details>`:''}${q.answer?`<details class="detail-card answer-card"><summary class="answer-toggle">ANSWER</summary><div class="answer-content"><p class="detail-text">${esc(q.answer)}</p></div></details>`:''}${q.solution?`<section class="detail-card solution-card"><div class="detail-label">STEP-BY-STEP SOLUTION</div><p class="detail-text">${esc(q.solution)}</p></section>`:''}</div>`;
+ root.innerHTML=`<div class="question-head"><p class="eyebrow">FORM 4 · CHAPTER 1</p><div class="question-meta"><span class="question-number">${questionNumber}</span>${q.difficulty?`<span class="difficulty-pill">${esc(q.difficulty)}</span>`:''}</div></div><div class="question-detail"><section class="detail-card"><div class="detail-label">QUESTION</div><p class="detail-text">${esc(q.question)}</p></section>${q.answer?`<details class="detail-card answer-card"><summary class="answer-toggle">ANSWER</summary><div class="answer-content"><p class="detail-text">${esc(q.answer)}</p></div></details>`:''}${q.solution?`<section class="detail-card solution-card"><div class="detail-label">STEP-BY-STEP SOLUTION</div><p class="detail-text">${esc(q.solution)}</p></section>`:''}</div>`;
 }
 load();
 </script>
