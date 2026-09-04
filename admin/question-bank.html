@@ -30,7 +30,6 @@ window.MathJax = {
 .edit-question-link{display:inline-block;border:1px solid #d9d0c2;border-radius:8px;background:#fffdf9;padding:7px 11px;color:#705d47;font-weight:700;text-decoration:none;margin-right:5px}
 .edit-question-link:hover{background:#eee7da}
 .delete-question-button{color:#8b3f35!important}
-.question-bank-question + td{text-transform:capitalize}
 @media(max-width:700px){.question-bank-question{max-width:320px}}
 </style>
 </head>
@@ -68,6 +67,7 @@ window.MathJax = {
           <tr>
             <th>No.</th>
             <th>Chapter</th>
+            <th>Year</th>
             <th>Question</th>
             <th>Difficulty</th>
             <th>Status</th>
@@ -76,7 +76,7 @@ window.MathJax = {
         </thead>
         <tbody id="question-bank-body">
           <tr>
-            <td colspan="6">Loading questions...</td>
+            <td colspan="7">Loading questions...</td>
           </tr>
         </tbody>
       </table>
@@ -87,21 +87,18 @@ window.MathJax = {
 </main>
 
 <script type="module" src="../assets/js/admin.js"></script>
+<script type="module" src="../assets/js/year.js"></script>
 <script src="../assets/js/script.js"></script>
 <script>
 (function waitForMathJax() {
   const body = document.getElementById('question-bank-body');
   if (!body) return;
-
   const typeset = () => {
     if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
       window.MathJax.typesetPromise([body]).catch(() => {});
     }
   };
-
-  const observer = new MutationObserver(() => {
-    typeset();
-  });
+  const observer = new MutationObserver(() => typeset());
   observer.observe(body, { childList: true, subtree: true });
   typeset();
 })();
