@@ -11,8 +11,12 @@
 <link rel="stylesheet" href="../assets/css/header.css">
 <link rel="stylesheet" href="../assets/css/admin.css">
 <style>
-.question-bank-actions{display:flex;justify-content:flex-end;margin-bottom:20px}.add-question-link,.edit-question-link,.delete-question-button{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid #6e5b43;border-radius:10px;padding:9px 14px;background:#6e5b43;color:#fffdf8;font-weight:700;cursor:pointer;font:inherit}.question-bank-question{max-width:360px}.question-bank-answer,.question-bank-solution{max-width:260px}.question-bank-actions-cell{display:flex;gap:8px;align-items:center}.edit-question-link{background:#fffdf8;color:#6e5b43}.delete-question-button{background:#fffdf8;color:#6e5b43;border-color:#d9cfbd}.delete-question-button:hover,.edit-question-link:hover{background:#eee6d7}.status-badge{display:inline-flex;padding:5px 10px;border-radius:999px;font-size:13px;font-weight:700}.status-published{background:#e8eee5;color:#53624d}.status-draft{background:#eee6d7;color:#6e5b43}
+.question-bank-actions{display:flex;justify-content:flex-end;margin-bottom:20px}.add-question-link,.edit-question-link,.delete-question-button{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid #6e5b43;border-radius:10px;padding:9px 14px;background:#6e5b43;color:#fffdf8;font-weight:700;cursor:pointer;font:inherit}.question-bank-question{max-width:360px}.question-bank-actions-cell{display:flex;gap:8px;align-items:center}.edit-question-link{background:#fffdf8;color:#6e5b43}.delete-question-button{background:#fffdf8;color:#6e5b43;border-color:#d9cfbd}.delete-question-button:hover,.edit-question-link:hover{background:#eee6d7}.status-badge{display:inline-flex;padding:5px 10px;border-radius:999px;font-size:13px;font-weight:700}.status-published{background:#e8eee5;color:#53624d}.status-draft{background:#eee6d7;color:#6e5b43}.question-bank-question mjx-container{margin:0 .08em}
 </style>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body class="admin-page">
 <header class="site-header">
@@ -32,6 +36,15 @@
   <p id="admin-message" class="admin-message" role="alert" aria-live="polite"></p>
 </main>
 <script type="module" src="../assets/js/admin.js"></script>
+<script>
+(async function waitForMathJax(){
+  if(!window.MathJax){setTimeout(waitForMathJax,100);return;}
+  try{if(window.MathJax.startup?.promise) await window.MathJax.startup.promise;}catch(e){return;}
+  const render=()=>{const body=document.getElementById('question-bank-body');if(body&&window.MathJax.typesetPromise){window.MathJax.typesetClear?.([body]);window.MathJax.typesetPromise([body]).catch(()=>{});}};
+  const body=document.getElementById('question-bank-body');
+  if(body){new MutationObserver(()=>render()).observe(body,{childList:true,subtree:true});render();}
+})();
+</script>
 <script src="../assets/js/script.js"></script>
 </body>
 </html>
