@@ -20,7 +20,7 @@ async function loadCount(table, elementId) {
 }
 
 function escapeHtml(value) {
-  return String(value ?? '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
+  return String(value ?? '').replace(/[&<>\"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '\"':'&quot;', "'":'&#39;' }[char]));
 }
 
 function truncateQuestion(value, maxLength = 120) {
@@ -93,6 +93,68 @@ async function deleteQuestion(id) {
   else if (message) message.textContent = 'Question deleted and the remaining questions were renumbered.';
   await loadQuestions();
   await loadCount('exercises', 'exercise-count');
+}
+
+function insertAtCursor(textarea, text) {
+  const start = textarea.selectionStart ?? textarea.value.length;
+  const end = textarea.selectionEnd ?? textarea.value.length;
+  textarea.value = textarea.value.slice(0, start) + text + textarea.value.slice(end);
+  textarea.focus();
+  const cursor = start + text.length;
+  textarea.setSelectionRange(cursor, cursor);
+}
+
+function setupEquationEditor() {
+  const modal = document.getElementById('equation-modal');
+  const mathField = document.getElementById('equation-input');
+  const preview = document.getElementById('equation-preview');
+  const cancel = document.getElementById('equation-cancel');
+  const insert = document.getElementById('equation-insert');
+  if (!modal || !mathField || !cancel || !insert) return;
+  let target = null;
+
+  const updatePreview = () => {
+    if (!preview) return;
+    preview.innerHTML = '';
+    const previewField = document.createElement('math-field');
+    previewField.readOnly = true;
+    previewField.value = mathField.value || '';
+    previewField.style.cssText = 'display:block;width:100%;border:0;background:transparent;font-size:22px;';
+    preview.appendChild(previewField);
+  };
+
+  document.querySelectorAll('[data-equation-target]').forEach(button => {
+    button.addEventListener('click', () => {
+      target = document.getElementById(button.dataset.equationTarget);
+      if (!target) return;
+      mathField.value = '';
+      updatePreview();
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      setTimeout(() => mathField.focus(), 50);
+    });
+  });
+
+  mathField.addEventListener('input', updatePreview);
+  cancel.addEventListener('click', () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    target = null;
+  });
+  insert.addEventListener('click', () => {
+    const latex = mathField.value?.trim();
+    if (!target || !latex) return;
+    insertAtCursor(target, `\\(${latex}\\)`);
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    target = null;
+  });
+  modal.addEventListener('click', event => {
+    if (event.target === modal) cancel.click();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && modal.classList.contains('is-open')) cancel.click();
+  });
 }
 
 async function addQuestion(event) {
@@ -179,6 +241,7 @@ async function loadQuestionForEdit() {
 async function init() {
   const session = await requireAdmin();
   if (!session) return;
+  setupEquationEditor();
   const isEditPage = Boolean(document.getElementById('save-question-button'));
   const isAddPage = Boolean(document.getElementById('add-question-button'));
   if (isEditPage) {
