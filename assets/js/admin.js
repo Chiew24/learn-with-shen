@@ -6,9 +6,9 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 async function requireAdmin() {
   const { data: { session } } = await supabase.auth.getSession();
-  if (!session) { window.location.href = 'login.html'; return null; }
+  if (!session) { window.location.href = '../login.html'; return null; }
   const { data: profile, error } = await supabase.from('profiles').select('role').eq('id', session.user.id).maybeSingle();
-  if (error || profile?.role !== 'admin') { await supabase.auth.signOut(); window.location.href = 'login.html'; return null; }
+  if (error || profile?.role !== 'admin') { await supabase.auth.signOut(); window.location.href = '../login.html'; return null; }
   return session;
 }
 
@@ -190,7 +190,7 @@ async function init() {
   } else {
     await Promise.all([loadCount('chapters', 'chapter-count'), loadCount('topics', 'topic-count'), loadCount('notes', 'note-count'), loadCount('exercises', 'exercise-count'), loadQuestions()]);
   }
-  document.getElementById('logout-button')?.addEventListener('click', async () => { await supabase.auth.signOut(); window.location.href = 'login.html'; });
+  document.getElementById('logout-button')?.addEventListener('click', async () => { await supabase.auth.signOut(); window.location.href = '../login.html'; });
 }
 
 init();
