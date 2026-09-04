@@ -1,145 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Question Bank | Learn with Shen</title>
-  <link rel="stylesheet" href="../../../assets/css/style.css">
-  <link rel="stylesheet" href="../../../assets/css/header.css">
-  <style>
-    .question-bank-page{max-width:1120px;margin:0 auto;padding:72px 0 90px}
-    .question-bank-page .page-label{font-size:12px;font-weight:700;letter-spacing:2px;color:#705d47;margin-bottom:14px}
-    .question-bank-page h1{font-size:clamp(52px,6vw,78px);margin-bottom:16px}
-    .question-bank-page .page-intro{font-size:17px;color:#746b60;margin-bottom:45px}
-    .question-table{background:#fffdf8;border:1px solid #ddd5c8;border-radius:18px;overflow:hidden}
-    .question-table-header,.question-row{display:grid;grid-template-columns:190px minmax(0,1fr) 145px;align-items:center}
-    .question-table-header{padding:20px 22px;background:#f1eadf;color:#705d47;font-size:14px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;border-bottom:1px solid #ddd5c8}
-    .question-row{padding:22px;min-height:82px;border-bottom:1px solid #e6ded2;transition:background .2s ease,transform .2s ease;cursor:pointer;text-decoration:none;color:inherit}
-    .question-row:last-child{border-bottom:0}
-    .question-row:hover{background:#fbf7f0}
-    .question-number{font-size:17px;font-weight:700;color:#2d2923}
-    .question-preview{font-size:16px;color:#38332d;line-height:1.6;padding-right:25px;min-width:0}
-    .question-preview mjx-container{font-size:105%!important}
-    .difficulty-badge{justify-self:start;display:inline-flex;align-items:center;padding:7px 13px;border-radius:999px;background:#eee7da;color:#705d47;font-size:13px;font-weight:700}
-    .empty-questions{padding:45px 25px;text-align:center;color:#746b60}
-    @media(max-width:800px){.question-bank-page{padding:55px 5% 70px}.question-table-header,.question-row{grid-template-columns:120px minmax(0,1fr) 100px}.question-table-header{font-size:11px;padding:16px}.question-row{padding:18px 16px}.question-number{font-size:15px}.question-preview{font-size:15px;padding-right:12px}.difficulty-badge{font-size:11px;padding:6px 9px}}
-    @media(max-width:560px){.question-table{overflow-x:auto}.question-table-header,.question-row{min-width:650px}}
-  </style>
-  <script>
-    window.MathJax={tex:{inlineMath:[['\\(','\\)'],['$','$']],displayMath:[['\\[','\\]'],['$$','$$']]},svg:{fontCache:'global'}};
-  </script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question Bank | Learn with Shen</title>
+<link rel="stylesheet" href="../../../assets/css/style.css">
+<link rel="stylesheet" href="../../../assets/css/header.css">
+<link rel="stylesheet" href="../../../assets/css/footer.css">
+<style>
+.question-bank-page{padding:72px 0 96px}.question-bank-page .page-label{font-size:12px;font-weight:700;letter-spacing:2px;color:#705d47;margin-bottom:14px}.question-bank-page h1{font-size:clamp(52px,6vw,78px);margin-bottom:16px}.question-bank-page .page-intro{font-size:17px;color:#746b60;margin-bottom:45px}.question-table{background:#fffdf8;border:1px solid #ddd5c8;border-radius:18px;overflow:hidden}.question-table-header,.question-row{display:grid;grid-template-columns:190px minmax(0,1fr) 145px;align-items:center}.question-table-header{padding:20px 22px;background:#f1eadf;color:#705d47;font-size:14px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;border-bottom:1px solid #ddd5c8}.question-row{padding:22px;min-height:82px;border-bottom:1px solid #e6ded2;transition:background .2s ease;cursor:pointer;text-decoration:none;color:inherit}.question-row:last-child{border-bottom:0}.question-row:hover{background:#fbf7f0}.question-number{font-size:17px;font-weight:700;color:#2d2923}.question-preview{font-size:16px;color:#38332d;line-height:1.6;padding-right:25px;min-width:0}.question-preview mjx-container{font-size:105%!important}.difficulty-badge{justify-self:start;display:inline-flex;align-items:center;padding:7px 13px;border-radius:999px;background:#eee7da;color:#705d47;font-size:13px;font-weight:700}.empty-questions{padding:45px 25px;text-align:center;color:#746b60}@media(max-width:800px){.question-bank-page{padding:55px 5% 70px}.question-table-header,.question-row{grid-template-columns:120px minmax(0,1fr) 100px}.question-table-header{font-size:11px;padding:16px}.question-row{padding:18px 16px}.question-number{font-size:15px}.question-preview{font-size:15px;padding-right:12px}.difficulty-badge{font-size:11px;padding:6px 9px}}@media(max-width:560px){.question-table{overflow-x:auto}.question-table-header,.question-row{min-width:650px}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)'],['$','$']],displayMath:[['\\[','\\]'],['$$','$$']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
-<header class="site-header">
-  <div class="header-inner">
-    <a href="../../../index.html" class="logo">
-      <img src="../../../assets/images/logo.png" alt="Learn with Shen logo">
-      <span class="logo-wordmark">Learn with <strong>Shen</strong></span>
-    </a>
-    <button class="menu-toggle" id="menu" aria-label="Open menu">☰</button>
-    <nav class="nav" id="nav">
-      <a href="../../../index.html">Home</a>
-      <div class="nav-dropdown">
-        <a href="#" class="nav-drop-btn">Learn <span>▾</span></a>
-        <div class="dropdown-menu">
-          <a href="../../../form4.html">Form 4</a>
-          <a href="../../../form5.html">Form 5</a>
-        </div>
-      </div>
-      <a href="../../../question-bank.html" class="active">Question Bank</a>
-      <a href="../../../about.html">About</a>
-    </nav>
-  </div>
-</header>
-
-<main class="question-bank-page">
-  <div class="page-label">FORM 4 · CHAPTER 1</div>
-  <h1>Question Bank</h1>
-  <p class="page-intro">Choose a question to view the full question, answer and step-by-step solution.</p>
-
-  <div class="question-table">
-    <div class="question-table-header">
-      <div>Question Number</div>
-      <div>Question</div>
-      <div>Difficulty</div>
-    </div>
-    <div id="question-list"><div class="empty-questions">Loading questions...</div></div>
-  </div>
-</main>
-
+<header class="navbar"><div class="container nav"><a class="logo" href="../../../index.html">Learn with <span>Shen</span></a><button class="menu" id="menu" aria-label="Open menu">☰</button><nav id="nav"><a href="../../../index.html">Home</a><div class="drop"><a href="#">Learn <span>▾</span></a><div><a href="../../../form4.html">Form 4</a><a href="../../../form5.html">Form 5</a></div></div><a class="active" href="../../../question-bank.html">Question Bank</a><a href="../../../about.html">About</a></nav></div></header>
+<main><section class="question-bank-page"><div class="container"><div class="page-label">FORM 4 · CHAPTER 1</div><h1>Question Bank</h1><p class="page-intro">Choose a question to view the full question, answer and step-by-step solution.</p><div class="question-table"><div class="question-table-header"><div>Question Number</div><div>Question</div><div>Difficulty</div></div><div id="question-list"><div class="empty-questions">Loading questions...</div></div></div></div></section></main>
+<footer><div class="container foot"><div><h3>Learn with Shen</h3><p>SPM Additional Mathematics learning platform.</p></div><div class="flinks"><a href="../../../index.html">Home</a><a href="../../../form4.html">Form 4</a><a href="../../../form5.html">Form 5</a><a href="../../../question-bank.html">Question Bank</a><a href="../../../about.html">About</a></div></div><div class="copy">© 2026 Learn with Shen. All rights reserved.</div></footer>
 <script type="module">
-  import { supabase } from '../../../assets/js/supabase.js';
-
-  const list=document.getElementById('question-list');
-
-  function formatDifficulty(value){
-    const text=String(value||'').trim().toLowerCase();
-    return text ? text.charAt(0).toUpperCase()+text.slice(1) : '';
-  }
-
-  function renderQuestion(question,index){
-    const row=document.createElement('a');
-    row.className='question-row';
-    row.href=`question.html?id=${encodeURIComponent(question.id)}`;
-
-    const number=document.createElement('div');
-    number.className='question-number';
-    number.textContent=`Question ${question.display_order ?? index+1}`;
-
-    const text=document.createElement('div');
-    text.className='question-preview';
-    text.textContent=question.question || '';
-
-    const difficulty=document.createElement('div');
-    difficulty.className='difficulty-badge';
-    difficulty.textContent=formatDifficulty(question.difficulty);
-
-    row.append(number,text,difficulty);
-    return row;
-  }
-
-  async function loadQuestions(){
-    try{
-      const {data:chapter,error:chapterError}=await supabase
-        .from('chapters')
-        .select('id')
-        .eq('form',4)
-        .eq('chapter_number',1)
-        .single();
-
-      if(chapterError || !chapter){
-        throw chapterError || new Error('Chapter not found');
-      }
-
-      const {data:questions,error}=await supabase
-        .from('exercises')
-        .select('id,question,difficulty,display_order')
-        .eq('chapter_id',chapter.id)
-        .eq('is_published',true)
-        .order('display_order',{ascending:true});
-
-      if(error) throw error;
-
-      list.innerHTML='';
-
-      if(!questions || questions.length===0){
-        list.innerHTML='<div class="empty-questions">No published questions yet.</div>';
-        return;
-      }
-
-      questions.forEach((question,index)=>list.appendChild(renderQuestion(question,index)));
-
-      if(window.MathJax){
-        await window.MathJax.typesetPromise(list.children);
-      }
-    }catch(error){
-      console.error('Question Bank loading error:',error);
-      list.innerHTML='<div class="empty-questions">Unable to load questions right now.</div>';
-    }
-  }
-
-  loadQuestions();
+import { supabase } from '../../../assets/js/supabase.js';
+const list=document.getElementById('question-list');
+function formatDifficulty(value){const text=String(value||'').trim().toLowerCase();return text?text.charAt(0).toUpperCase()+text.slice(1):'';}
+function renderQuestion(question,index){const row=document.createElement('a');row.className='question-row';row.href=`question.html?id=${encodeURIComponent(question.id)}`;const number=document.createElement('div');number.className='question-number';number.textContent=`Question ${question.display_order??index+1}`;const text=document.createElement('div');text.className='question-preview';text.textContent=question.question||'';const difficulty=document.createElement('div');difficulty.className='difficulty-badge';difficulty.textContent=formatDifficulty(question.difficulty);row.append(number,text,difficulty);return row;}
+async function loadQuestions(){try{const {data:chapter,error:chapterError}=await supabase.from('chapters').select('id').eq('form',4).eq('chapter_number',1).single();if(chapterError||!chapter)throw chapterError||new Error('Chapter not found');const {data:questions,error}=await supabase.from('exercises').select('id,question,difficulty,display_order').eq('chapter_id',chapter.id).eq('is_published',true).order('display_order',{ascending:true});if(error)throw error;list.innerHTML='';if(!questions||questions.length===0){list.innerHTML='<div class="empty-questions">No published questions yet.</div>';return;}questions.forEach((question,index)=>list.appendChild(renderQuestion(question,index)));if(window.MathJax)await window.MathJax.typesetPromise([list]);}catch(error){console.error('Question Bank loading error:',error);list.innerHTML='<div class="empty-questions">Unable to load questions right now.</div>';}}
+loadQuestions();
 </script>
 <script src="../../../assets/js/script.js"></script>
 </body>
