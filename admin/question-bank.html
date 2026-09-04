@@ -1,1 +1,78 @@
-<!-- Difficulty labels should be displayed with the first letter capitalised. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Manage the Learn with Shen question bank.">
+<title>Question Bank | Learn with Shen</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/typography.css">
+<link rel="stylesheet" href="../assets/css/logo.css">
+<link rel="stylesheet" href="../assets/css/header.css">
+<link rel="stylesheet" href="../assets/css/admin.css">
+<style>
+.question-bank-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.question-bank-question{max-width:360px;line-height:1.5}
+.question-bank-actions-cell{white-space:nowrap}
+.edit-question-link{display:inline-block;border:1px solid #d9d0c2;border-radius:8px;background:#fffdf9;padding:7px 11px;color:#705d47;font-weight:700;text-decoration:none;margin-right:5px}
+.edit-question-link:hover{background:#eee7da}
+.delete-question-button{color:#8b3f35!important}
+@media(max-width:700px){.question-bank-question{max-width:260px}}
+</style>
+</head>
+<body class="admin-page">
+<header class="site-header">
+  <a class="logo" href="index.html">
+    <img src="../assets/images/logo.png" alt="Learn with Shen logo">
+    <span class="logo-wordmark">Learn with <strong>Shen</strong></span>
+  </a>
+  <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+  <nav class="nav">
+    <a href="index.html">Dashboard</a>
+    <a href="notes.html">Notes</a>
+    <a class="active" href="question-bank.html">Question Bank</a>
+    <button id="logout-button" class="admin-logout" type="button">Logout</button>
+  </nav>
+</header>
+
+<main class="admin-main">
+  <div class="admin-heading">
+    <div>
+      <p class="admin-eyebrow">CONTENT MANAGEMENT</p>
+      <h1>Question Bank</h1>
+      <p>Manage, edit, delete and publish your mathematics questions.</p>
+    </div>
+    <div class="question-bank-actions">
+      <a href="add-question.html" class="login-button">+ Add Question</a>
+    </div>
+  </div>
+
+  <section class="admin-panel">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Chapter</th>
+            <th>Question</th>
+            <th>Difficulty</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="question-bank-body">
+          <tr>
+            <td colspan="6">Loading questions...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <p id="admin-message" class="admin-message" role="alert" aria-live="polite"></p>
+</main>
+
+<script type="module" src="../assets/js/admin.js"></script>
+<script src="../assets/js/script.js"></script>
+</body>
+</html>
