@@ -14,7 +14,7 @@
     .question-table{background:#fffdf8;border:1px solid #ddd5c8;border-radius:18px;overflow:hidden}
     .question-table-header,.question-row{display:grid;grid-template-columns:190px minmax(0,1fr) 145px;align-items:center}
     .question-table-header{padding:20px 22px;background:#f1eadf;color:#705d47;font-size:14px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;border-bottom:1px solid #ddd5c8}
-    .question-row{padding:22px;min-height:82px;border-bottom:1px solid #e6ded2;transition:background .2s ease,transform .2s ease;cursor:pointer}
+    .question-row{padding:22px;min-height:82px;border-bottom:1px solid #e6ded2;transition:background .2s ease,transform .2s ease;cursor:pointer;text-decoration:none;color:inherit}
     .question-row:last-child{border-bottom:0}
     .question-row:hover{background:#fbf7f0}
     .question-number{font-size:17px;font-weight:700;color:#2d2923}
@@ -33,10 +33,20 @@
 <body>
 <header class="site-header">
   <div class="header-inner">
-    <a href="../../../index.html" class="brand">Learn with <span>Shen</span></a>
-    <nav>
+    <a href="../../../index.html" class="logo">
+      <img src="../../../assets/images/logo.png" alt="Learn with Shen logo">
+      <span class="logo-wordmark">Learn with <strong>Shen</strong></span>
+    </a>
+    <button class="menu-toggle" id="menu" aria-label="Open menu">☰</button>
+    <nav class="nav" id="nav">
       <a href="../../../index.html">Home</a>
-      <a href="../../../curriculum/form4.html">Learn</a>
+      <div class="nav-dropdown">
+        <a href="#" class="nav-drop-btn">Learn <span>▾</span></a>
+        <div class="dropdown-menu">
+          <a href="../../../form4.html">Form 4</a>
+          <a href="../../../form5.html">Form 5</a>
+        </div>
+      </div>
       <a href="../../../question-bank.html" class="active">Question Bank</a>
       <a href="../../../about.html">About</a>
     </nav>
