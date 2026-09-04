@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="../assets/css/header.css">
 <link rel="stylesheet" href="../assets/css/admin.css">
 <style>
-.question-bank-actions{display:flex;justify-content:flex-end;margin-bottom:20px}.add-question-link,.edit-question-link,.delete-question-button{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid #6e5b43;border-radius:10px;padding:9px 14px;background:#6e5b43;color:#fffdf8;font-weight:700;cursor:pointer;font:inherit}.question-bank-question{max-width:360px}.question-bank-answer,.question-bank-solution{max-width:260px}.question-bank-actions-cell{display:flex;gap:8px;align-items:center}.edit-question-link{background:#fffdf8;color:#6e5b43}.delete-question-button{background:#fffdf8;color:#6e5b43;border-color:#d9cfbd}.delete-question-button:hover,.edit-question-link:hover{background:#eee6d7}
+.question-bank-actions{display:flex;justify-content:flex-end;margin-bottom:20px}.add-question-link,.edit-question-link,.delete-question-button{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid #6e5b43;border-radius:10px;padding:9px 14px;background:#6e5b43;color:#fffdf8;font-weight:700;cursor:pointer;font:inherit}.question-bank-question{max-width:360px}.question-bank-answer,.question-bank-solution{max-width:260px}.question-bank-actions-cell{display:flex;gap:8px;align-items:center}.edit-question-link{background:#fffdf8;color:#6e5b43}.delete-question-button{background:#fffdf8;color:#6e5b43;border-color:#d9cfbd}.delete-question-button:hover,.edit-question-link:hover{background:#eee6d7}.status-badge{display:inline-flex;padding:5px 10px;border-radius:999px;font-size:13px;font-weight:700}.status-published{background:#e8eee5;color:#53624d}.status-draft{background:#eee6d7;color:#6e5b43}
 </style>
 </head>
 <body class="admin-page">
@@ -25,7 +25,7 @@
   <div class="question-bank-actions"><a href="add-question.html" class="add-question-link">+ Add Question</a></div>
   <section class="question-bank-table-wrap" aria-label="Question Bank">
     <table class="question-bank-table">
-      <thead><tr><th>Question Number</th><th>Question</th><th>Difficulty</th><th>Answer</th><th>Solution</th><th>Actions</th></tr></thead>
+      <thead><tr><th>Question Number</th><th>Chapter</th><th>Question</th><th>Difficulty</th><th>Status</th><th>Actions</th></tr></thead>
       <tbody id="question-bank-body"><tr><td colspan="6" class="question-bank-empty">Loading questions...</td></tr></tbody>
     </table>
   </section>
