@@ -19,14 +19,6 @@ function difficultyLabel(value) {
   return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
 }
 
-async function loadYearForEdit() {
-  const id = new URLSearchParams(window.location.search).get('id');
-  const input = yearInput();
-  if (!id || !input) return;
-  const { data, error } = await supabaseYear.from('exercises').select('year').eq('id', id).single();
-  if (!error && data) input.value = data.year ?? '';
-}
-
 async function saveAdd(event) {
   const form = document.getElementById('question-form');
   const addButton = document.getElementById('add-question-button');
@@ -55,33 +47,6 @@ async function saveAdd(event) {
   form.reset();
   if (message) message.textContent = is_published ? 'Question added and published.' : 'Question added as draft.';
   addButton.disabled = false;
-}
-
-async function saveEdit(event) {
-  const form = document.getElementById('question-form');
-  const saveButton = document.getElementById('save-question-button');
-  const id = new URLSearchParams(window.location.search).get('id');
-  if (!form || !saveButton || !id || event.target !== form) return;
-  event.preventDefault();
-  event.stopImmediatePropagation();
-  const message = document.getElementById('question-form-message');
-  const question = document.getElementById('question-input')?.value.trim();
-  const newChapterId = document.getElementById('chapter-input')?.value;
-  const difficulty = document.getElementById('difficulty-input')?.value || null;
-  const yearValue = yearInput()?.value.trim();
-  const year = yearValue ? Number(yearValue) : null;
-  const hint = document.getElementById('hint-input')?.value.trim() || null;
-  const answer = document.getElementById('answer-input')?.value.trim() || null;
-  const solution = document.getElementById('solution-input')?.value.trim() || null;
-  const is_published = document.getElementById('publish-input')?.checked ?? false;
-  if (!question || !newChapterId) { if (message) message.textContent = 'Please enter a question and select a chapter.'; return; }
-  if (yearValue && (!Number.isInteger(year) || year < 1900 || year > 2100)) { if (message) message.textContent = 'Please enter a valid year.'; return; }
-  saveButton.disabled = true;
-  if (message) message.textContent = 'Saving changes...';
-  const { error } = await supabaseYear.from('exercises').update({ question, chapter_id: newChapterId, difficulty, year, hint, answer, solution, is_published }).eq('id', id);
-  if (error) { if (message) message.textContent = `Unable to save changes: ${error.message}`; saveButton.disabled = false; return; }
-  if (message) message.textContent = 'Question updated successfully.';
-  saveButton.disabled = false;
 }
 
 async function deleteQuestionWithYear(id) {
@@ -118,9 +83,8 @@ async function loadQuestionBankWithYear() {
 async function initYear() {
   const form = document.getElementById('question-form');
   if (form) {
-    const isEdit = Boolean(document.getElementById('save-question-button'));
-    if (isEdit) await loadYearForEdit();
-    form.addEventListener('submit', isEdit ? saveEdit : saveAdd, true);
+    const isAdd = Boolean(document.getElementById('add-question-button'));
+    if (isAdd) form.addEventListener('submit', saveAdd, true);
   }
   if (document.getElementById('question-bank-body')) await loadQuestionBankWithYear();
 }
