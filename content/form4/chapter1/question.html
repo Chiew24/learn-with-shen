@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question | Learn with Shen</title>
+<link rel="stylesheet" href="../../../assets/css/style.css">
+<link rel="stylesheet" href="../../../assets/css/header.css">
+<link rel="stylesheet" href="../../../assets/css/footer.css">
+<style>
+.question-page{padding:70px 0 90px}.question-head{max-width:820px;margin-bottom:36px}.question-head h1{margin:10px 0 16px}.question-head p{color:#68665d}.back{display:inline-block;margin-bottom:18px}.question-detail{max-width:820px}.detail-card{background:#fffdf8;border:1px solid #ded5c5;border-radius:18px;padding:28px;margin-bottom:20px}.detail-label{font-size:.72rem;font-weight:800;letter-spacing:1.5px;color:#6e5b43;margin-bottom:14px}.detail-text{white-space:pre-wrap;line-height:1.8;margin:0;color:#38332d}.answer-card{border-left:4px solid #705d47}.solution-card{border-left:4px solid #ded5c5}.future-content{min-height:120px}.empty{text-align:center;padding:45px;background:#fffdf8;border:1px dashed #ded5c5;border-radius:16px;color:#68665d}.meta{display:flex;gap:10px;flex-wrap:wrap}.pill{font-size:.72rem;font-weight:800;letter-spacing:.5px;padding:6px 10px;border-radius:999px;background:#eee6d7;color:#6e5b43}@media(max-width:700px){.question-page{padding:55px 0 70px}.detail-card{padding:22px}}
+</style>
+</head>
+<body>
+<header class="navbar"><div class="container nav"><a class="logo" href="../../../index.html">Learn with <span>Shen</span></a><button class="menu" id="menu">☰</button><nav id="nav"><a href="../../../index.html">Home</a><div class="drop"><a href="#">Learn <span>▾</span></a><div><a href="../../../form4.html">Form 4</a><a href="../../../form5.html">Form 5</a></div></div><a class="active" href="../../../question-bank.html">Question Bank</a><a href="../../../about.html">About</a></nav></div></header>
+<main><section class="question-page"><div class="container"><div id="question-root"><div class="empty">Loading question...</div></div></div></section></main>
+<footer><div class="container foot"><div><h3>Learn with Shen</h3><p>SPM Additional Mathematics learning platform.</p></div><div class="flinks"><a href="../../../index.html">Home</a><a href="../../../form4.html">Form 4</a><a href="../../../form5.html">Form 5</a><a href="../../../question-bank.html">Question Bank</a><a href="../../../about.html">About</a></div></div><div class="copy">© 2026 Learn with Shen. All rights reserved.</div></footer>
+<script type="module">
+import { supabase } from '../../../assets/js/supabase.js';
+const root=document.querySelector('#question-root');
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function load(){
+ const id=new URLSearchParams(location.search).get('id');
+ if(!id){root.innerHTML='<div class="empty">Question not found.</div>';return;}
+ const {data:q,error}=await supabase.from('exercises').select('id,title,question,answer,solution,difficulty,marks,is_published').eq('id',id).eq('is_published',true).single();
+ if(error||!q){root.innerHTML='<div class="empty">Question not found or is not available.</div>';return;}
+ root.innerHTML=`<div class="question-head"><a class="back" href="question-bank.html">← Back to Chapter 1 Question Bank</a><p class="eyebrow">FORM 4 · CHAPTER 1</p><h1>${esc(q.title||'Question')}</h1><div class="meta"><span class="pill">Question</span>${q.difficulty?`<span class="pill">${esc(q.difficulty)}</span>`:''}${q.marks!=null?`<span class="pill">${esc(q.marks)} marks</span>`:''}</div></div><div class="question-detail"><section class="detail-card"><div class="detail-label">QUESTION</div><p class="detail-text">${esc(q.question)}</p></section>${q.answer?`<section class="detail-card answer-card"><div class="detail-label">ANSWER</div><p class="detail-text">${esc(q.answer)}</p></section>`:''}${q.solution?`<section class="detail-card solution-card"><div class="detail-label">STEP-BY-STEP SOLUTION</div><p class="detail-text">${esc(q.solution)}</p></section>`:''}<section class="detail-card future-content"><div class="detail-label">MORE</div><p class="detail-text">More learning content can be added here in the future.</p></section></div>`;
+}
+load();
+</script>
+<script src="../../../assets/js/script.js"></script>
+</body>
+</html>
