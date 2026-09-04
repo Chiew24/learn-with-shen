@@ -104,6 +104,27 @@ function insertAtCursor(textarea, text) {
   textarea.setSelectionRange(cursor, cursor);
 }
 
+async function ensureMathLive() {
+  if (customElements.get('math-field')) return true;
+  const existing = document.querySelector('script[data-mathlive-loader]');
+  if (existing) {
+    await customElements.whenDefined('math-field');
+    return true;
+  }
+  return new Promise((resolve) => {
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/mathlive';
+    script.async = true;
+    script.dataset.mathliveLoader = 'true';
+    script.onload = async () => {
+      try { await customElements.whenDefined('math-field'); resolve(true); }
+      catch { resolve(false); }
+    };
+    script.onerror = () => resolve(false);
+    document.head.appendChild(script);
+  });
+}
+
 function setupEquationEditor() {
   const modal = document.getElementById('equation-modal');
   const mathField = document.getElementById('equation-input');
@@ -116,17 +137,24 @@ function setupEquationEditor() {
   const updatePreview = () => {
     if (!preview) return;
     preview.innerHTML = '';
+    if (!mathField.value) return;
     const previewField = document.createElement('math-field');
     previewField.readOnly = true;
-    previewField.value = mathField.value || '';
+    previewField.value = mathField.value;
     previewField.style.cssText = 'display:block;width:100%;border:0;background:transparent;font-size:22px;';
     preview.appendChild(previewField);
   };
 
   document.querySelectorAll('[data-equation-target]').forEach(button => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', async () => {
       target = document.getElementById(button.dataset.equationTarget);
       if (!target) return;
+      const ready = await ensureMathLive();
+      if (!ready) {
+        window.alert('The equation editor could not be loaded. Please check your internet connection and try again.');
+        target = null;
+        return;
+      }
       mathField.value = '';
       updatePreview();
       modal.classList.add('is-open');
@@ -142,9 +170,9 @@ function setupEquationEditor() {
     target = null;
   });
   insert.addEventListener('click', () => {
-    const latex = mathField.value?.trim();
-    if (!target || !latex) return;
-    insertAtCursor(target, `\\(${latex}\\)`);
+    const latex = typeof mathField.getValue === 'function' ? mathField.getValue('latex') : mathField.value;
+    if (!target || !latex?.trim()) return;
+    insertAtCursor(target, `\\(${latex.trim()}\\)`);
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
     target = null;
