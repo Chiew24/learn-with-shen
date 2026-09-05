@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syllabuses</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f5f0;
+      color: #1f2937;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    .page { width: 100%; max-width: 1100px; }
+    .hero { text-align: center; margin-bottom: 48px; }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      margin-bottom: 14px;
+    }
+    .hero p { color: #6b7280; font-size: 1.05rem; line-height: 1.6; }
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+    }
+    .syllabus-card {
+      border: 1px solid #e5e1d8;
+      background: #fff;
+      border-radius: 24px;
+      padding: 42px 36px;
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .syllabus-card:hover {
+      transform: translateY(-6px);
+      border-color: #cfc8ba;
+      box-shadow: 0 18px 45px rgba(31,41,55,.10);
+    }
+    .card-label {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #8a8174;
+      margin-bottom: 18px;
+    }
+    .syllabus-card h2 { font-size: 1.8rem; margin-bottom: 12px; }
+    .syllabus-card p { color: #6b7280; line-height: 1.65; max-width: 430px; }
+    .card-action {
+      margin-top: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: #1f2937;
+    }
+    .arrow { font-size: 1.2rem; transition: transform .2s ease; }
+    .syllabus-card:hover .arrow { transform: translateX(5px); }
+    @media (max-width: 700px) {
+      body { align-items: flex-start; padding-top: 70px; }
+      .hero { margin-bottom: 34px; }
+      .choices { grid-template-columns: 1fr; }
+      .syllabus-card { min-height: 220px; padding: 32px 28px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <h1>Syllabuses</h1>
+      <p>Choose where you want to begin.</p>
+    </header>
+    <section class="choices" aria-label="Syllabus options">
+      <a class="syllabus-card" href="my-syllabuses.html">
+        <div>
+          <div class="card-label">Your Learning</div>
+          <h2>My Syllabuses</h2>
+          <p>View the syllabuses you have selected and continue your learning.</p>
+        </div>
+        <div class="card-action">Open My Syllabuses <span class="arrow">→</span></div>
+      </a>
+      <a class="syllabus-card" href="explore-syllabuses.html">
+        <div>
+          <div class="card-label">Discover</div>
+          <h2>Explore Syllabuses</h2>
+          <p>Browse available syllabuses and discover what you can learn.</p>
+        </div>
+        <div class="card-action">Explore Syllabuses <span class="arrow">→</span></div>
+      </a>
+    </section>
+  </main>
+</body>
+</html>
